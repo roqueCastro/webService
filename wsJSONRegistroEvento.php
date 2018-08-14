@@ -8,11 +8,13 @@ $imagen   = $_POST['imagen'];
 /*$encuesta = 2;
 $cx = "12.6846846";
 $cy = "-87.168435";*/
-$path   = "imagenes/Foto_$cx.jpg";
-$actual = date("Y-m-d H:i:s");
+
+$fecha = date("d_m_Y");
+$hora  = date("H_i_s");
+$path  = "imagenes/Foto_Fecha_" . $fecha . "_Hora_" . $hora . ".jpg";
 
 //$url = "http://$hostname_localhost/ejemploBDRemota/$path";
-$url = "imagenes/Foto_$actual.jpg";
+$url = "imagenes/Foto_Fecha_" . $fecha . "_Hora_" . $hora . ".jpg";
 
 file_put_contents($path, base64_decode($imagen));
 $bytesArchivo = file_get_contents($path);
