@@ -19,13 +19,17 @@ $url = "imagenes/Foto_Fecha_" . $fecha . "_Hora_" . $hora . ".jpg";
 file_put_contents($path, base64_decode($imagen));
 $bytesArchivo = file_get_contents($path);
 
-$sql   = "INSERT INTO evento (latitud, longitud, encuesta, usuario, imagen)VALUES (:lat,:lng,:encu,:usu,:image)";
-$resul = $base->prepare($sql);
-$resul->execute(array(":lat" => $cx, ":lng" => $cy, ":encu" => $encuesta, ":usu" => 1, ":image" => $url));
-$c = $resul->rowCount();
-if ($c > 0) {
-    $idReciente = $base->lastInsertId("evento");
-    echo $idReciente;
-} else {
-    echo 'Noregistra';
+try {
+    $sql   = "INSERT INTO evento (latitud, longitud, encuesta, usuario, imagen)VALUES (:lat,:lng,:encu,:usu,:image)";
+    $resul = $base->prepare($sql);
+    $resul->execute(array(":lat" => $cx, ":lng" => $cy, ":encu" => $encuesta, ":usu" => 1, ":image" => $url));
+    $c = $resul->rowCount();
+    if ($c > 0) {
+        $idReciente = $base->lastInsertId("evento");
+        echo $idReciente;
+    } else {
+        echo 'Noregistra';
+    }
+} catch (Exception $e) {
+    echo 'ErrorBaseDatos';
 }
