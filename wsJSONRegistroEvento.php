@@ -20,9 +20,9 @@ file_put_contents($path, base64_decode($imagen));
 $bytesArchivo = file_get_contents($path);
 
 try {
-    $sql   = "INSERT INTO evento (latitud, longitud, encuesta, usuario, imagen)VALUES (:lat,:lng,:encu,:usu,:image)";
+    $sql   = "INSERT INTO evento (latitud, longitud, estado, encuesta, usuario, imagen)VALUES (:lat,:lng,:esta,:encu,:usu,:image)";
     $resul = $base->prepare($sql);
-    $resul->execute(array(":lat" => $cx, ":lng" => $cy, ":encu" => $encuesta, ":usu" => 1, ":image" => $url));
+    $resul->execute(array(":lat" => $cx, ":lng" => $cy, ":esta" => 1, ":encu" => $encuesta, ":usu" => 1, ":image" => $url));
     $c = $resul->rowCount();
     if ($c > 0) {
         $idReciente = $base->lastInsertId("evento");
